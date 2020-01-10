@@ -17,10 +17,11 @@ int main()
       {
           getline(cin,engine_name);
           engine_names_list[j]=engine_name;
-          first_line[j]=0;
+          first_line[j]=101;
           number_of_repatation[j]=0;
       }
       int q;
+      int large =0;
       cin>>q>>ws;
       string quireis[q];
       string user_input;
@@ -36,86 +37,96 @@ int main()
                   if(number_of_repatation[j]==1)
                   {
                     first_line[j] = k;
-                  }
-
-              }
-          }
-      }
-      string engine_in_use;
-      bool repatation = true;
-      for(int j=0;j<s;j++)
-      {
-          for(int k=j+1;k<s-1;k++)
-          {
-              if(first_line[j]<first_line[k])
-              {
-                  swap(first_line[j],first_line[k]);
-                  swap(engine_names_list[j],engine_names_list[k]);
-                  swap(number_of_repatation[j],number_of_repatation[k]);
-              }
-              if (number_of_repatation[j]==0)
-              {
-                  engine_in_use = engine_names_list[j];
-                  repatation = false;
-              }
-          }
-      }
-      int engine_switch =0;
-      int index_loop_break;
-      if(repatation==true)
-      {
-          engine_in_use = engine_names_list[0];
-          engine_switch++;
-          for(int k=0;k<q;k++)
-          {
-              if(quireis[k]==engine_in_use)
-              {
-                  for(int j=0;j<s;j++)
-                  {
-                      number_of_repatation[j]=0;
-                      first_line[j]=0;
-                      for(int m=k;k<q;m++)
-                      {
-                          if(engine_names_list[j]==quireis[k])
-                          {
-                              number_of_repatation[j] +=1;
-                              if(number_of_repatation[j]==1)
-                              {
-                                  first_line[j] = k;
-                              }
-                          }
-                      }
-                  }
-                  for(int j=0;j<s;j++)
+                    if(k>large)
                     {
-                        for(int k=j+1;k<s-1;k++)
+                        large =k;
+                    }
+                  }
+                  break;
+
+            }
+          }
+      }
+    int number_of_switch=0;
+    string engine_in_use = engine_names_list[0];
+    for(int j=0;j<s;j++)
+    {
+        if(first_line[j]==101)
+        {
+            engine_in_use=engine_names_list[j];
+            break;
+        }
+        else if(first_line[j]==large)
+        {
+            engine_in_use=engine_names_list[j];
+        }
+
+    }
+    int index_break=0;
+    for(int k=0;k<q;k++)
+    {
+        large =0;
+        if(quireis[k]==engine_in_use)
+        {
+            number_of_switch++;
+            index_break =k;
+            for(int j =0;j<s;j++)
+            {
+                int counter=1;
+                if(engine_names_list[j]!=engine_in_use)
+                {
+                first_line[j]=101;
+                for(int m=k;m<q;m++)
+                {
+                    if(quireis[m]==engine_names_list[j])
+                    {
+                        if(counter==1)
+                        {
+                            first_line[j]=m;
+                            if(m>large)
                             {
-                                if(first_line[j]<first_line[k])
-                                    {
-                                        swap(first_line[j],first_line[k]);
-                                        swap(engine_names_list[j],engine_names_list[k]);
-                                        swap(number_of_repatation[j],number_of_repatation[k]);
-              }
-              if (number_of_repatation[j]==0)
-              {
-                  engine_in_use = engine_names_list[j];
-                  repatation = false;
-              }
-              else
-              {
-                  engine_in_use = engine_names_list[0];
-              }
-          }
-      }
+                                large=m;
+                            }
+                            counter++;
+
+                        }
+                    }
+                }
+                }
+                else
+                {
+                    first_line[j]=102;
+                }
+
+            }
+             for(int j=0;j<s;j++)
+             {
+                if(engine_in_use !=engine_names_list[j])
+                {
+                if(first_line[j]==101)
+                {
+                    engine_in_use = engine_names_list[j];
+                    break;
+                }
+                else if(first_line[j]==large)
+                {
+                    engine_in_use = engine_names_list[j];
+
+                }
+                }
+             }
+            }
 
 
 
+    }
+    cout<<"Case #"<<i<<": "<<number_of_switch<<endl;
 
-              }
-          }
 
-      }
-      cout<<"Case #"<<n<<" : "<<engine_switch<<endl;
   }
+  return 0;
+
+
+
 
 }
