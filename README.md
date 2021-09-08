@@ -1,5 +1,4 @@
 # code-jam
-lol
 Problem
 
 The urban legend goes that if you go to the Google homepage and search for "Google", the universe will implode. We have a secret to share... It is true! Please don't try it, or tell anyone. All right, maybe not. We are just kidding.
